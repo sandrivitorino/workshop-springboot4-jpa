@@ -1,5 +1,6 @@
 package com.vonvit.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vonvit.course.entities.pk.OrderItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -9,18 +10,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrdeItem implements Serializable {
+public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
     private Double price;
 
-    public OrdeItem(){
+    public OrderItem(){
     }
 
-    public OrdeItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         super();
         id.setOrder(order);
         id.setProduct(product);
@@ -28,6 +29,7 @@ public class OrdeItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -64,8 +66,8 @@ public class OrdeItem implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrdeItem ordeItem = (OrdeItem) o;
-        return id.equals(ordeItem.id);
+        OrderItem orderItem = (OrderItem) o;
+        return id.equals(orderItem.id);
     }
 
     @Override
