@@ -3,6 +3,7 @@ package com.vonvit.course.services;
 import com.vonvit.course.entities.User;
 import com.vonvit.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,5 +26,9 @@ public class UserService {
 
     public User insert(User obj){
         return repository.save(obj);
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 }
